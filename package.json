@@ -1,1 +1,11 @@
-{"name":"stablelab","private":true,"type":"module","scripts":{"test":"node --test tests/test_engine.mjs tests/test_browser.cjs"},"engines":{"node":">=22"}}
+{
+  "name": "stablelab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/test_*.mjs tests/test_*.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
