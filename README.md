@@ -78,3 +78,16 @@ semantics. JSON, not clingo-language compatibility. Stable model counts are not
 probabilities. This implements established finite methods, not a new algorithm.
 
 [Exact contract](CONTRACT.md) · [Prior-work ledger](SOURCES.md)
+
+## Safe replacement: strong equivalence
+
+The [safe-replacement inspector](https://midya8.github.io/stablelab/equivalence.html) compares every finite SE interpretation and supplies a concrete positive-normal context when two modules differ. Equal stable families, even with equal classical models, are not enough. Eleven controls include that exact failure and a cycle-context witness.
+
+The comparison accepts at most five atoms and 24 rules per side. It checks all 3ⁿ pairs, exports both augmented evidence families, and has an independent three-valued checker plus proper-subset stable-family reconstruction. Shared parsers/base checker and the fixed-vocabulary normal-context scope are explicit in [EQUIVALENCE.md](EQUIVALENCE.md).
+
+```sh
+stablelab compare comparison.json > proof.json
+stablelab verify-comparison proof.json
+```
+
+Version 0.2.0 preserves the base eight-atom inspector. It introduces no paid API or runtime solver dependency.
