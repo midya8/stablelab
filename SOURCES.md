@@ -65,3 +65,14 @@ verified until the separate Python checker accepts it.
 This is a bounded learning and inspection tool, not a new ASP solver. It does not
 infer real agents' beliefs, execute supplied code, call a model/API or assign
 probabilities to model counts.
+
+## Strong-equivalence extension
+
+- Lifschitz, Pearce, Valverde (2001), *Strongly Equivalent Logic Programs*, original author/lab publication record: https://www.cs.utexas.edu/~ai-lab/?lif01= . Read abstract/metadata for replacement under arbitrary added program and the here-and-there characterization. Not implementation code.
+- Turner (2003), *Strong Equivalence Made Easy: Nested Expressions and Weight Constraints*. University publication record, read abstract and metadata: https://experts.umn.edu/en/publications/strong-equivalence-made-easy-nested-expressions-and-weight-constr/ . DOI https://doi.org/10.1017/S1471068403001819 . The DOI/arXiv full-text fetch returned no content in this research pass, so the constructive proof below was read in the explicit accessible paper, not claimed as directly inspected Turner PDF.
+- Faber, Tompits, Woltran (2008), *Notions of Strong Equivalence for Logic Programs with Ordered Disjunction*: https://www.kr.tuwien.ac.at/projects/eq/kr08b.pdf . Read Definition 3, Proposition 5, Theorem 6 proof, and Proposition 22. Uses SE pairs and the facts-X plus complete positive edges on Y minus X construction; normal programs are its explicit specialization. StableLab does not implement ordered disjunction or preference semantics.
+- Cabalar (2002), *Alternative Characterizations for Strong Equivalence of Logic Programs*: https://ar5iv.labs.arxiv.org/html/cs/0207032 . Read introduction's fact-p versus default-p example and added-q context; classical/three-valued characterization scope. Not a source for arbitrary nesting support.
+- Cabalar (2002), AAAI paper, *A Three-Valued Characterization for Strong Equivalence of Logic Programs*: https://cdn.aaai.org/AAAI/2002/AAAI02-017.pdf . Read as supporting three-valued foundations, not a new semantic result attributed to this project.
+- Slota, Leite (2011), *Back and Forth Between Rules and SE-Models (Extended Version)*: https://ar5iv.labs.arxiv.org/html/1102.5385v2 . Read motivation and SE definitions. Important caveat: strong equivalence does not preserve all rule-dependency information for update semantics. StableLab makes no such claim.
+
+The bounded complete atlas, inspectable original/reduct obligations, deterministic cycle specialization, three-valued checker, browser presentation and tests are this project's engineering. The definitions and equivalence characterization are established published theory.
