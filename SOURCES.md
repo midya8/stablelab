@@ -76,3 +76,12 @@ probabilities to model counts.
 - Slota, Leite (2011), *Back and Forth Between Rules and SE-Models (Extended Version)*: https://ar5iv.labs.arxiv.org/html/1102.5385v2 . Read motivation and SE definitions. Important caveat: strong equivalence does not preserve all rule-dependency information for update semantics. StableLab makes no such claim.
 
 The bounded complete atlas, inspectable original/reduct obligations, deterministic cycle specialization, three-valued checker, browser presentation and tests are this project's engineering. The definitions and equivalence characterization are established published theory.
+
+## Uniform-equivalence extension
+
+- Eiter and Fink (2003), *Uniform Equivalence of Logic Programs under the Stable Model Semantics*, original paper at author archive: https://www.kr.tuwien.ac.at/staff/eiter/et-archive/files/iclp03a.pdf . Read Definition1 (fact-only equivalence), Example2 (normal programs uniformly but not strongly equivalent), Definition3 (maximal proper SE pairs), Theorem3 and its finite-program caveat. Credited control is adapted directly from Example2; theory is not new.
+- Eiter, Fink, Woltran, *Semantical Characterizations and Complexity of Equivalences in Answer Set Programming*, author project archive: https://www.kr.tuwien.ac.at/projects/eq/tocl07.pdf . Read uniform/strong equivalence discussion and finite UE characterization as a cross-check. No claim of broader syntax support.
+- Faber, Morak, Woltran, *On Uniform Equivalence of Epistemic Logic Programs*: https://ar5iv.labs.arxiv.org/html/1907.10925 . Read only ordinary-program SE/UE preliminaries as a later independent exposition. StableLab does not implement epistemic logic programs.
+- Supplementary lead only: *A common view on strong, uniform, and other notions of equivalence in answer-set programming*, https://doi.org/10.1017/s1471068407003250 . Full-text fetch returned no content in this research pass, so no implementation claim relies on this lead. Relativized/hyperequivalence is not implemented.
+
+The complete bounded input table, inspectable UE extensions, minimum-cardinality fact certificate, checker and UI are engineering built on these established definitions. No new theorem, empirical benchmark or scalable solver claim.
