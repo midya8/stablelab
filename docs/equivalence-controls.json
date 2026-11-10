@@ -1,0 +1,625 @@
+[
+  {
+    "name": "Same answers, different module",
+    "description": "Fact p versus p unless q. Adding fact q breaks the apparent tie.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "fact",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "default",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "q"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 9,
+      "classically_equivalent": false,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": false,
+      "left_stable_masks": [
+        1
+      ],
+      "right_stable_masks": [
+        1
+      ],
+      "difference_pairs": 4,
+      "context_kind": "facts_y"
+    }
+  },
+  {
+    "name": "Classical agreement is still too weak",
+    "description": "A positive cycle and two default constraints have identical classical and stable models. Their reducts disagree at proper SE pairs; a positive cycle context exposes it.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "forward",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "back",
+          "head": "q",
+          "positive": [
+            "p"
+          ],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "selfp",
+          "head": "p",
+          "positive": [
+            "p"
+          ],
+          "negative": []
+        },
+        {
+          "id": "selfq",
+          "head": "q",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "require",
+          "head": null,
+          "positive": [
+            "p"
+          ],
+          "negative": [
+            "q"
+          ]
+        },
+        {
+          "id": "require2",
+          "head": null,
+          "positive": [
+            "q"
+          ],
+          "negative": [
+            "p"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 9,
+      "classically_equivalent": true,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": false,
+      "left_stable_masks": [
+        0
+      ],
+      "right_stable_masks": [
+        0
+      ],
+      "difference_pairs": 2,
+      "context_kind": "facts_x_cycle"
+    }
+  },
+  {
+    "name": "Same models, different reducts",
+    "description": "A default constraint forbids q without p. It is classically equivalent to p from q, but an SE pair separates them.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "imply",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "constraint",
+          "head": null,
+          "positive": [
+            "q"
+          ],
+          "negative": [
+            "p"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 9,
+      "classically_equivalent": true,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": false,
+      "left_stable_masks": [
+        0
+      ],
+      "right_stable_masks": [
+        0
+      ],
+      "difference_pairs": 1,
+      "context_kind": "facts_x_cycle"
+    }
+  },
+  {
+    "name": "Positive cycle versus silence",
+    "description": "Both have just the empty stable model. Facts can activate the positive cycle.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "pq",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "qp",
+          "head": "q",
+          "positive": [
+            "p"
+          ],
+          "negative": []
+        }
+      ],
+      "right": []
+    },
+    "expected": {
+      "pairs": 9,
+      "classically_equivalent": false,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": false,
+      "left_stable_masks": [
+        0
+      ],
+      "right_stable_masks": [
+        0
+      ],
+      "difference_pairs": 6,
+      "context_kind": "facts_y"
+    }
+  },
+  {
+    "name": "Redundant transitive edge",
+    "description": "Adding p from r to a two-edge chain is safe under every normal context over this vocabulary.",
+    "request": {
+      "atoms": [
+        "p",
+        "q",
+        "r"
+      ],
+      "left": [
+        {
+          "id": "pq",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "qr",
+          "head": "q",
+          "positive": [
+            "r"
+          ],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "pq",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "qr",
+          "head": "q",
+          "positive": [
+            "r"
+          ],
+          "negative": []
+        },
+        {
+          "id": "pr",
+          "head": "p",
+          "positive": [
+            "r"
+          ],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 27,
+      "classically_equivalent": true,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": true,
+      "left_stable_masks": [
+        0
+      ],
+      "right_stable_masks": [
+        0
+      ],
+      "difference_pairs": 0,
+      "context_kind": null
+    }
+  },
+  {
+    "name": "Tautology and duplicate rule",
+    "description": "Rule IDs do not give rules new semantics. Positive self implication and a duplicate fact preserve strong equivalence.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "p",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "other",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        },
+        {
+          "id": "duplicate",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        },
+        {
+          "id": "tautology",
+          "head": "q",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 9,
+      "classically_equivalent": true,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": true,
+      "left_stable_masks": [
+        1
+      ],
+      "right_stable_masks": [
+        1
+      ],
+      "difference_pairs": 0,
+      "context_kind": null
+    }
+  },
+  {
+    "name": "Two inconsistent modules",
+    "description": "An empty constraint and an odd default loop both have no stable models, but only one forbids every context.",
+    "request": {
+      "atoms": [
+        "p"
+      ],
+      "left": [
+        {
+          "id": "block",
+          "head": null,
+          "positive": [],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "odd",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "p"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 3,
+      "classically_equivalent": false,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": false,
+      "left_stable_masks": [],
+      "right_stable_masks": [],
+      "difference_pairs": 2,
+      "context_kind": "facts_y"
+    }
+  },
+  {
+    "name": "Every context still inconsistent",
+    "description": "Two differently written universally inconsistent programs have empty SE sets.",
+    "request": {
+      "atoms": [
+        "p"
+      ],
+      "left": [
+        {
+          "id": "block",
+          "head": null,
+          "positive": [],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "p",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        },
+        {
+          "id": "forbid",
+          "head": null,
+          "positive": [
+            "p"
+          ],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 3,
+      "classically_equivalent": true,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": true,
+      "left_stable_masks": [],
+      "right_stable_masks": [],
+      "difference_pairs": 0,
+      "context_kind": null
+    }
+  },
+  {
+    "name": "Empty vocabulary",
+    "description": "There is one SE pair, not zero. Empty program and empty constraint disagree there.",
+    "request": {
+      "atoms": [],
+      "left": [],
+      "right": [
+        {
+          "id": "block",
+          "head": null,
+          "positive": [],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 1,
+      "classically_equivalent": false,
+      "ordinarily_equivalent": false,
+      "strongly_equivalent": false,
+      "left_stable_masks": [
+        0
+      ],
+      "right_stable_masks": [],
+      "difference_pairs": 1,
+      "context_kind": "facts_y"
+    }
+  },
+  {
+    "name": "Five-atom complete pair atlas",
+    "description": "243 SE interpretations, including all diagonal and proper pairs. Independent even default choices have the same base stable models, but a constraint is not a rule.",
+    "request": {
+      "atoms": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "left": [
+        {
+          "id": "ab",
+          "head": "a",
+          "positive": [],
+          "negative": [
+            "b"
+          ]
+        },
+        {
+          "id": "ba",
+          "head": "b",
+          "positive": [],
+          "negative": [
+            "a"
+          ]
+        },
+        {
+          "id": "cd",
+          "head": "c",
+          "positive": [],
+          "negative": [
+            "d"
+          ]
+        },
+        {
+          "id": "dc",
+          "head": "d",
+          "positive": [],
+          "negative": [
+            "c"
+          ]
+        },
+        {
+          "id": "e",
+          "head": "e",
+          "positive": [
+            "a"
+          ],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "ab",
+          "head": "a",
+          "positive": [],
+          "negative": [
+            "b"
+          ]
+        },
+        {
+          "id": "ba",
+          "head": "b",
+          "positive": [],
+          "negative": [
+            "a"
+          ]
+        },
+        {
+          "id": "cd",
+          "head": "c",
+          "positive": [],
+          "negative": [
+            "d"
+          ]
+        },
+        {
+          "id": "dc",
+          "head": "d",
+          "positive": [],
+          "negative": [
+            "c"
+          ]
+        },
+        {
+          "id": "e",
+          "head": "e",
+          "positive": [
+            "a"
+          ],
+          "negative": []
+        },
+        {
+          "id": "safe",
+          "head": null,
+          "positive": [
+            "e"
+          ],
+          "negative": [
+            "a"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 243,
+      "classically_equivalent": false,
+      "ordinarily_equivalent": true,
+      "strongly_equivalent": false,
+      "left_stable_masks": [
+        6,
+        10,
+        21,
+        25
+      ],
+      "right_stable_masks": [
+        6,
+        10,
+        21,
+        25
+      ],
+      "difference_pairs": 12,
+      "context_kind": "facts_y"
+    }
+  },
+  {
+    "name": "A real cycle gadget",
+    "description": "Facts p and q versus constraints requiring both. The first proper pair differs at X empty and Y full; the separating context is the two-edge positive cycle.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "p",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        },
+        {
+          "id": "q",
+          "head": "q",
+          "positive": [],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "needp",
+          "head": null,
+          "positive": [],
+          "negative": [
+            "p"
+          ]
+        },
+        {
+          "id": "needq",
+          "head": null,
+          "positive": [],
+          "negative": [
+            "q"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "pairs": 9,
+      "classically_equivalent": true,
+      "ordinarily_equivalent": false,
+      "strongly_equivalent": false,
+      "left_stable_masks": [
+        3
+      ],
+      "right_stable_masks": [],
+      "difference_pairs": 3,
+      "context_kind": "facts_x_cycle"
+    }
+  }
+]
