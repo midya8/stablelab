@@ -91,3 +91,10 @@ stablelab verify-comparison proof.json
 ```
 
 Version 0.2.0 preserves the base eight-atom inspector. It introduces no paid API or runtime solver dependency.
+
+
+## Every fact input: uniform equivalence
+
+The [fact-input inspector](https://midya8.github.io/stablelab/uniform.html) separates ordinary, uniform and strong equivalence. Check every one of up to 32 fact contexts, all 243 SE/UE pairs, both augmented stable families and every candidate. When an input separates, the complete table certifies minimum cardinality, including controls requiring 0/1/2/3/4 facts. Eiter/Fink's normal-program counterexample agrees under every fact input but fails under a rule context.
+
+A separate Python checker reconstructs all context candidates using model intersections and exhaustive proper-subset reduct models. Shared parsers and checked SE evidence are disclosed in [UNIFORM.md](UNIFORM.md). Two more CLI commands: `stablelab uniform comparison.json` and `stablelab verify-uniform proof.json`. Version 0.3.0 retains both earlier inspectors and adds no runtime dependency.
