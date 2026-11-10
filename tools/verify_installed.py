@@ -2,7 +2,7 @@
 import sys,json,tempfile,subprocess,pathlib
 cs=json.load(open(sys.argv[1],encoding='utf-8'))
 from stablelab import __version__
-assert __version__=='0.2.0'
+assert __version__=='0.3.0'
 count=0
 with tempfile.TemporaryDirectory() as t:
  for i,c in enumerate(cs):
@@ -19,3 +19,11 @@ with tempfile.TemporaryDirectory() as t:
   for cmd in [[sys.executable,'-m','stablelab'],['stablelab']]:
    report=json.loads(subprocess.check_output(cmd+['compare',str(inp)]));out.write_text(json.dumps(report));assert json.loads(subprocess.check_output(cmd+['verify-comparison',str(out)]))['valid'];report['strongly_equivalent']=not report['strongly_equivalent'];out.write_text(json.dumps(report));assert subprocess.run(cmd+['verify-comparison',str(out)],capture_output=True).returncode==2
 print('installed comparison controls',len(cs),'both entry points and forged verdict rejected')
+
+cs=json.load(open(pathlib.Path(sys.argv[1]).with_name('uniform-controls.json'),encoding='utf-8'))
+with tempfile.TemporaryDirectory() as t:
+ for c in cs:
+  inp=pathlib.Path(t)/'input.json';out=pathlib.Path(t)/'uniform.json';inp.write_text(json.dumps(c['request']))
+  for cmd in [[sys.executable,'-m','stablelab'],['stablelab']]:
+   report=json.loads(subprocess.check_output(cmd+['uniform',str(inp)]));out.write_text(json.dumps(report));assert json.loads(subprocess.check_output(cmd+['verify-uniform',str(out)]))['valid'];report['uniformly_equivalent']=not report['uniformly_equivalent'];out.write_text(json.dumps(report));assert subprocess.run(cmd+['verify-uniform',str(out)],capture_output=True).returncode==2
+print('installed uniform controls',len(cs),'both entry points and forged verdict rejected')

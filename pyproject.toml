@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "stablelab"
-version = "0.2.0"
+version = "0.3.0"
 description = "Finite normal logic-program reduct, support and stable-model evidence"
 requires-python = ">=3.10"
 license = {text = "MIT"}

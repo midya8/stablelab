@@ -1,0 +1,433 @@
+[
+  {
+    "name": "Facts agree, rules break the tie",
+    "description": "Eiter/Fink 2003 Example2: a follows either b or not b, versus either c or not c. All eight fact contexts agree, but b from a separates.",
+    "request": {
+      "atoms": [
+        "a",
+        "b",
+        "c"
+      ],
+      "left": [
+        {
+          "id": "unlessb",
+          "head": "a",
+          "positive": [],
+          "negative": [
+            "b"
+          ]
+        },
+        {
+          "id": "fromb",
+          "head": "a",
+          "positive": [
+            "b"
+          ],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "unlessc",
+          "head": "a",
+          "positive": [],
+          "negative": [
+            "c"
+          ]
+        },
+        {
+          "id": "fromc",
+          "head": "a",
+          "positive": [
+            "c"
+          ],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": true,
+      "strong": false,
+      "fact_contexts": 8,
+      "minimum_fact_count": null
+    }
+  },
+  {
+    "name": "One fact is enough",
+    "description": "Both base programs return p. Adding q separates a fact from a default.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "fact",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "default",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "q"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 4,
+      "minimum_fact_count": 1
+    }
+  },
+  {
+    "name": "Two facts are necessary",
+    "description": "The left program derives p when q is absent or r is absent. Only facts q and r together expose the difference from fact p.",
+    "request": {
+      "atoms": [
+        "p",
+        "q",
+        "r"
+      ],
+      "left": [
+        {
+          "id": "unlessq",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "q"
+          ]
+        },
+        {
+          "id": "unlessr",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "r"
+          ]
+        }
+      ],
+      "right": [
+        {
+          "id": "fact",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 8,
+      "minimum_fact_count": 2
+    }
+  },
+  {
+    "name": "Three facts are necessary",
+    "description": "All smaller fact contexts agree. The complete table proves minimum cardinality three, not just subset minimality.",
+    "request": {
+      "atoms": [
+        "a",
+        "b",
+        "c",
+        "p"
+      ],
+      "left": [
+        {
+          "id": "unlessa",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "a"
+          ]
+        },
+        {
+          "id": "unlessb",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "b"
+          ]
+        },
+        {
+          "id": "unlessc",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "c"
+          ]
+        }
+      ],
+      "right": [
+        {
+          "id": "fact",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 16,
+      "minimum_fact_count": 3
+    }
+  },
+  {
+    "name": "Already different without input",
+    "description": "The empty context counts. A minimum separator can contain zero facts.",
+    "request": {
+      "atoms": [
+        "p"
+      ],
+      "left": [
+        {
+          "id": "fact",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        }
+      ],
+      "right": []
+    },
+    "expected": {
+      "ordinary": false,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 2,
+      "minimum_fact_count": 0
+    }
+  },
+  {
+    "name": "Safe transitive edge",
+    "description": "Strong equivalence implies uniform equivalence. Every fact context agrees.",
+    "request": {
+      "atoms": [
+        "p",
+        "q",
+        "r"
+      ],
+      "left": [
+        {
+          "id": "pq",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "qr",
+          "head": "q",
+          "positive": [
+            "r"
+          ],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "pq",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "qr",
+          "head": "q",
+          "positive": [
+            "r"
+          ],
+          "negative": []
+        },
+        {
+          "id": "pr",
+          "head": "p",
+          "positive": [
+            "r"
+          ],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": true,
+      "strong": true,
+      "fact_contexts": 8,
+      "minimum_fact_count": null
+    }
+  },
+  {
+    "name": "Constraint versus derivation",
+    "description": "Equal base and classical models can still disagree on fact inputs.",
+    "request": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "left": [
+        {
+          "id": "imply",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        }
+      ],
+      "right": [
+        {
+          "id": "constraint",
+          "head": null,
+          "positive": [
+            "q"
+          ],
+          "negative": [
+            "p"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 4,
+      "minimum_fact_count": 1
+    }
+  },
+  {
+    "name": "Inconsistent until a fact arrives",
+    "description": "An odd default loop and empty constraint both start without stable models. A fact repairs only the odd loop.",
+    "request": {
+      "atoms": [
+        "p"
+      ],
+      "left": [
+        {
+          "id": "odd",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "p"
+          ]
+        }
+      ],
+      "right": [
+        {
+          "id": "block",
+          "head": null,
+          "positive": [],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 2,
+      "minimum_fact_count": 1
+    }
+  },
+  {
+    "name": "Empty vocabulary",
+    "description": "One fact context and one SE pair still exist. Empty program and empty constraint differ.",
+    "request": {
+      "atoms": [],
+      "left": [],
+      "right": [
+        {
+          "id": "block",
+          "head": null,
+          "positive": [],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": false,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 1,
+      "minimum_fact_count": 0
+    }
+  },
+  {
+    "name": "Five-atom complete input table",
+    "description": "32 fact contexts and 243 SE pairs. Four facts are necessary to defeat all four defaults.",
+    "request": {
+      "atoms": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "p"
+      ],
+      "left": [
+        {
+          "id": "ra",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "a"
+          ]
+        },
+        {
+          "id": "rb",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "b"
+          ]
+        },
+        {
+          "id": "rc",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "c"
+          ]
+        },
+        {
+          "id": "rd",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "d"
+          ]
+        }
+      ],
+      "right": [
+        {
+          "id": "p",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        }
+      ]
+    },
+    "expected": {
+      "ordinary": true,
+      "uniform": false,
+      "strong": false,
+      "fact_contexts": 32,
+      "minimum_fact_count": 4
+    }
+  }
+]
