@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {spawn} from 'node:child_process';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import support from './chrome_support.cjs';
+test('teardown stops writing children even when their launcher already exited', {timeout:10000},async()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'stablelab-shutdown-')),file=path.join(dir,'writes');const child=`const fs=require('node:fs');fs.writeFileSync(${JSON.stringify(file)},'ready');setInterval(()=>fs.appendFileSync(${JSON.stringify(file)},'x'),10)`;const launcher=spawn(process.execPath,['-e',`require('node:child_process').spawn(process.execPath,['-e',${JSON.stringify(child)}],{stdio:'ignore'}).unref()`],{detached:true,stdio:'ignore'});const delay=ms=>new Promise(r=>setTimeout(r,ms));
+ try{for(let i=0;i<200&&!fs.existsSync(file);i++)await delay(10);assert.ok(fs.existsSync(file));await new Promise(r=>launcher.exitCode!==null?r():launcher.once('exit',r));await support.stopChrome(launcher);const bytes=fs.statSync(file).size;await delay(120);assert.equal(fs.statSync(file).size,bytes,'child still writing after group teardown');}
+ finally{await support.stopChrome(launcher);fs.rmSync(dir,{recursive:true,force:true,maxRetries:5,retryDelay:100});}
+});
