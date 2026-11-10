@@ -62,3 +62,22 @@ async function stopChrome(browser) {
     await Promise.race([new Promise(r=>browser.once('exit',r)),sleep(1000)]);
 }
 module.exports.stopChrome = stopChrome;
+
+// Download destinations may exist while Chrome is still flushing their bytes.
+// Wait only for transport completion; parse and evidence assertions run once.
+async function waitForDownload(file, expectedBytes, {timeoutMs=10000, pollMs=20}={}) {
+  const fs=require('node:fs');
+  if (!Number.isInteger(expectedBytes) || expectedBytes<1)
+    throw new TypeError('expected download byte count must be positive');
+  const deadline=Date.now()+timeoutMs;
+  while (Date.now()<deadline) {
+    try {
+      const size=fs.statSync(file).size;
+      if (size>expectedBytes) throw Error('download exceeds expected byte count');
+      if (size===expectedBytes && !fs.existsSync(file+'.crdownload')) return;
+    } catch(e) { if(e.code!=='ENOENT') throw e; }
+    await new Promise(r=>setTimeout(r,pollMs));
+  }
+  throw Error('download did not complete within '+timeoutMs+'ms: '+file);
+}
+module.exports.waitForDownload=waitForDownload;
