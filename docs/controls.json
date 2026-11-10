@@ -1,0 +1,341 @@
+[
+  {
+    "title": "Supported. Minimal. Still not stable.",
+    "description": "Every classical model contains p and q. Their circular support survives, but the self-default rule vanishes in that candidate reduct. No atom can start a derivation.",
+    "program": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "rules": [
+        {
+          "id": "default",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "p"
+          ]
+        },
+        {
+          "id": "from_q",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "from_p",
+          "head": "q",
+          "positive": [
+            "p"
+          ],
+          "negative": []
+        }
+      ]
+    }
+  },
+  {
+    "title": "Circular support is not grounding.",
+    "description": "Both empty and full sets are supported models of a positive cycle. Only the empty candidate equals its reduct least closure.",
+    "program": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "rules": [
+        {
+          "id": "from_q",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "from_p",
+          "head": "q",
+          "positive": [
+            "p"
+          ],
+          "negative": []
+        }
+      ]
+    }
+  },
+  {
+    "title": "Two stable alternatives.",
+    "description": "An even default-negation cycle has two stable models. Neither atom is skeptical, although each is brave.",
+    "program": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "rules": [
+        {
+          "id": "choose_p",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "q"
+          ]
+        },
+        {
+          "id": "choose_q",
+          "head": "q",
+          "positive": [],
+          "negative": [
+            "p"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "One odd cycle. No stable model.",
+    "description": "p follows from its own absence. The empty candidate derives p; candidate p removes its only rule. Query answers are null, not a claim of evidence through vacuity.",
+    "program": {
+      "atoms": [
+        "p"
+      ],
+      "rules": [
+        {
+          "id": "odd",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "p"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "A constraint filters a choice.",
+    "description": "The even default cycle initially permits p or q. A headless constraint forbids q and leaves p as the unique stable model.",
+    "program": {
+      "atoms": [
+        "p",
+        "q"
+      ],
+      "rules": [
+        {
+          "id": "choose_p",
+          "head": "p",
+          "positive": [],
+          "negative": [
+            "q"
+          ]
+        },
+        {
+          "id": "choose_q",
+          "head": "q",
+          "positive": [],
+          "negative": [
+            "p"
+          ]
+        },
+        {
+          "id": "forbid_q",
+          "head": null,
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        }
+      ]
+    }
+  },
+  {
+    "title": "A fact grounds the whole chain.",
+    "description": "A fact starts a cycle and a longer positive derivation. Every atom has a finite proof height, unlike the unseeded positive cycle.",
+    "program": {
+      "atoms": [
+        "p",
+        "q",
+        "r",
+        "s"
+      ],
+      "rules": [
+        {
+          "id": "seed",
+          "head": "p",
+          "positive": [],
+          "negative": []
+        },
+        {
+          "id": "pq",
+          "head": "q",
+          "positive": [
+            "p"
+          ],
+          "negative": []
+        },
+        {
+          "id": "qp",
+          "head": "p",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "qr",
+          "head": "r",
+          "positive": [
+            "q"
+          ],
+          "negative": []
+        },
+        {
+          "id": "rs",
+          "head": "s",
+          "positive": [
+            "r"
+          ],
+          "negative": []
+        }
+      ]
+    }
+  },
+  {
+    "title": "Default conclusions can retract.",
+    "description": "A declared bird normally flies; an exception is a fact. Absence of abnormal is tested in the candidate, not treated as classical negation.",
+    "program": {
+      "atoms": [
+        "abnormal",
+        "bird",
+        "flies"
+      ],
+      "rules": [
+        {
+          "id": "bird_fact",
+          "head": "bird",
+          "positive": [],
+          "negative": []
+        },
+        {
+          "id": "exception",
+          "head": "abnormal",
+          "positive": [],
+          "negative": []
+        },
+        {
+          "id": "default_flight",
+          "head": "flies",
+          "positive": [
+            "bird"
+          ],
+          "negative": [
+            "abnormal"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "No atoms. One empty stable model.",
+    "description": "The empty program has exactly the empty stable model. This differs from the headless empty-body constraint, which has no model at all.",
+    "program": {
+      "atoms": [],
+      "rules": []
+    }
+  },
+  {
+    "title": "An empty constraint forbids everything.",
+    "description": "A constraint with no body is always violated. Even the empty interpretation is not a model.",
+    "program": {
+      "atoms": [],
+      "rules": [
+        {
+          "id": "impossible",
+          "head": null,
+          "positive": [],
+          "negative": []
+        }
+      ]
+    }
+  },
+  {
+    "title": "Sixteen stable selections.",
+    "description": "Four independent even default cycles give sixteen stable models among all 256 candidates. All reduct, support and unfounded-set evidence is still complete.",
+    "program": {
+      "atoms": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h"
+      ],
+      "rules": [
+        {
+          "id": "pick_a",
+          "head": "a",
+          "positive": [],
+          "negative": [
+            "b"
+          ]
+        },
+        {
+          "id": "pick_b",
+          "head": "b",
+          "positive": [],
+          "negative": [
+            "a"
+          ]
+        },
+        {
+          "id": "pick_c",
+          "head": "c",
+          "positive": [],
+          "negative": [
+            "d"
+          ]
+        },
+        {
+          "id": "pick_d",
+          "head": "d",
+          "positive": [],
+          "negative": [
+            "c"
+          ]
+        },
+        {
+          "id": "pick_e",
+          "head": "e",
+          "positive": [],
+          "negative": [
+            "f"
+          ]
+        },
+        {
+          "id": "pick_f",
+          "head": "f",
+          "positive": [],
+          "negative": [
+            "e"
+          ]
+        },
+        {
+          "id": "pick_g",
+          "head": "g",
+          "positive": [],
+          "negative": [
+            "h"
+          ]
+        },
+        {
+          "id": "pick_h",
+          "head": "h",
+          "positive": [],
+          "negative": [
+            "g"
+          ]
+        }
+      ]
+    }
+  }
+]

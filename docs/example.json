@@ -1,0 +1,32 @@
+{
+  "atoms": [
+    "p",
+    "q"
+  ],
+  "rules": [
+    {
+      "id": "default",
+      "head": "p",
+      "positive": [],
+      "negative": [
+        "p"
+      ]
+    },
+    {
+      "id": "from_q",
+      "head": "p",
+      "positive": [
+        "q"
+      ],
+      "negative": []
+    },
+    {
+      "id": "from_p",
+      "head": "q",
+      "positive": [
+        "p"
+      ],
+      "negative": []
+    }
+  ]
+}
